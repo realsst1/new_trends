@@ -20,7 +20,7 @@ class _ProductsState extends State<Products> {
       "picture":"images/products/dress1.jpeg",
       "old_price":2399,
       "price":1799
-    }
+    },
   ];
 
   @override
@@ -61,7 +61,12 @@ class SingleProduct extends StatelessWidget {
         child: new Material(
           child: InkWell(
             onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context)=>new ProductDetails()
+                builder: (context)=>new ProductDetails(
+                  productDetailsName: productName,
+                  productDetailsOldPrice: oldPrice,
+                  productDetailsPicture: productPicture,
+                  productDetailsPrice: price,
+                )
             )),
             child: new GridTile(
               footer: new Container(
