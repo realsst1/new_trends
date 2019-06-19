@@ -115,9 +115,9 @@ class _HomePageState extends State<HomePage> {
             new InkWell(
               onTap: (){},
               child: new ListTile(
-                title: new Text("Categories"),
+                title: new Text("Shopping Cart"),
                 leading: new Icon(
-                  Icons.dashboard,
+                  Icons.shopping_cart,
                   color: Colors.blue,
                 ),
               ),

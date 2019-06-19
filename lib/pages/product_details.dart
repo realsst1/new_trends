@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_trends/main.dart';
 
 class ProductDetails extends StatefulWidget {
 
@@ -24,7 +25,12 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
-        title: Text("New Trends"),
+        title: new InkWell(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> new HomePage()));
+          },
+            child: Text("New Trends")
+        ),
         actions: <Widget>[
           new IconButton(
             icon: new Icon(
@@ -33,13 +39,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             onPressed: (){},
           ),
-          new IconButton(
-            icon: new Icon(
-              Icons.shopping_cart,
-              color: Colors.white,
-            ),
-            onPressed: (){},
-          )
         ],
       ),
       body: new ListView(
@@ -285,9 +284,135 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: new Text("New"),
               )
             ],
+          ),
+
+          new Divider(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Text("Similar Products"),
+          ),
+          new Container(
+            height: 400.0,
+            child: SimilarProducts(),
           )
         ],
       )
+    );
+  }
+}
+
+class SimilarProducts extends StatefulWidget {
+  @override
+  _SimilarProductsState createState() => _SimilarProductsState();
+}
+
+class _SimilarProductsState extends State<SimilarProducts> {
+
+  var productList=[
+    {
+      "name":"Red Dress",
+      "picture":"images/products/dress1.jpeg",
+      "old_price":2399,
+      "price":1799
+    },
+    {
+      "name":"Skirt",
+      "picture":"images/products/skt1.jpeg",
+      "old_price":1599,
+      "price":1499
+    },
+    {
+      "name":"Pants",
+      "picture":"images/products/pants2.jpeg",
+      "old_price":5499,
+      "price":3999
+    },
+    {
+      "name":"Skirt",
+      "picture":"images/products/skt2.jpeg",
+      "old_price":2399,
+      "price":1999
+    }
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        itemCount: productList.length,
+        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (BuildContext context,int i){
+          return SimilarSingleProduct(
+            productName: productList[i]['name'],
+            productPicture: productList[i]['picture'],
+            oldPrice: productList[i]['old_price'],
+            price: productList[i]['price'],
+          );
+        }
+    );
+  }
+}
+
+
+class SimilarSingleProduct extends StatelessWidget {
+  final productName;
+  final productPicture;
+  final oldPrice;
+  final price;
+
+  SimilarSingleProduct({
+    this.productName,
+    this.productPicture,
+    this.oldPrice,
+    this.price
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Hero(
+        tag: new Text("hero 1"),
+        child: new Material(
+          child: InkWell(
+            onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context)=>new ProductDetails(
+                  productDetailsName: productName,
+                  productDetailsOldPrice: oldPrice,
+                  productDetailsPicture: productPicture,
+                  productDetailsPrice: price,
+                )
+            )),
+            child: new GridTile(
+              footer: new Container(
+                color: Colors.white70,
+                child: new Row(
+                  children: <Widget>[
+                    new Expanded(
+                        child: new Text(
+                          productName,
+                          style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0
+                          ),
+                        )
+                    ),
+                    new Text(
+                      "Rs "+price.toString(),
+                      style: new TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              child: Image.asset(
+                productPicture,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
