@@ -91,7 +91,25 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: <Widget>[
               new Expanded(
                 child: new MaterialButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      showDialog(
+                        context: context,
+                        builder: (context){
+                          return new AlertDialog(
+                              title: new Text("Size"),
+                              content: new Text("Choose the size"),
+                              actions: <Widget>[
+                                new MaterialButton(
+                                    onPressed: (){
+                                      Navigator.of(context).pop(context);
+                                    },
+                                    child:new Text("CLOSE") ,
+                                )
+                              ],
+                          );
+                        }
+                      );
+                    },
                   elevation: 0.1,
                     color: Colors.white,
                   textColor: Colors.grey,
@@ -110,7 +128,25 @@ class _ProductDetailsState extends State<ProductDetails> {
 
               new Expanded(
                 child: new MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return new AlertDialog(
+                            title: new Text("Colors"),
+                            content: new Text("Choose the color"),
+                            actions: <Widget>[
+                              new MaterialButton(
+                                onPressed: (){
+                                  Navigator.of(context).pop(context);
+                                },
+                                child:new Text("CLOSE") ,
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
                   elevation: 0.1,
                   color: Colors.white,
                   textColor: Colors.grey,
@@ -129,7 +165,25 @@ class _ProductDetailsState extends State<ProductDetails> {
 
               new Expanded(
                 child: new MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return new AlertDialog(
+                            title: new Text("Quantity"),
+                            content: new Text("Choose the Quantity"),
+                            actions: <Widget>[
+                              new MaterialButton(
+                                onPressed: (){
+                                  Navigator.of(context).pop(context);
+                                },
+                                child:new Text("CLOSE") ,
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
                   elevation: 0.1,
                   color: Colors.white,
                   textColor: Colors.grey,
@@ -166,6 +220,70 @@ class _ProductDetailsState extends State<ProductDetails> {
                   onPressed: (){}
               ),
               new IconButton(icon: new Icon(Icons.favorite_border),color: Colors.blue, onPressed: (){})
+            ],
+          ),
+
+          Divider(),
+
+          new ListTile(
+            title: new Text("Product Details"),
+            subtitle: new Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
+
+          ),
+
+          Divider(),
+
+          new Row(
+            children: <Widget>[
+              new Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0,5.0,5.0,5.0),
+                  child: new Text(
+                    "Product Name",
+                    style: new TextStyle(
+                      color: Colors.grey
+                    ),
+                  ),
+              ),
+              new Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text(widget.productDetailsName),
+              )
+            ],
+          ),
+
+          new Row(
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.fromLTRB(12.0,5.0,5.0,5.0),
+                child: new Text(
+                  "Product Brand",
+                  style: new TextStyle(
+                      color: Colors.grey
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("Brand X"),
+              )
+            ],
+          ),
+
+          new Row(
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.fromLTRB(12.0,5.0,5.0,5.0),
+                child: new Text(
+                  "Product Condition",
+                  style: new TextStyle(
+                      color: Colors.grey
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("New"),
+              )
             ],
           )
         ],

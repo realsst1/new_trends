@@ -21,6 +21,30 @@ class _ProductsState extends State<Products> {
       "old_price":2399,
       "price":1799
     },
+    {
+      "name":"Skirt",
+      "picture":"images/products/skt1.jpeg",
+      "old_price":1599,
+      "price":1499
+    },
+    {
+      "name":"Shoe",
+      "picture":"images/products/shoe1.jpg",
+      "old_price":2599,
+      "price":1899
+    },
+    {
+      "name":"Pants",
+      "picture":"images/products/pants2.jpeg",
+      "old_price":5499,
+      "price":3999
+    },
+    {
+      "name":"Skirt",
+      "picture":"images/products/skt2.jpeg",
+      "old_price":2399,
+      "price":1999
+    }
   ];
 
   @override
@@ -57,7 +81,7 @@ class SingleProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Hero(
-        tag: productName,
+        tag: new Text("hero 1"),
         child: new Material(
           child: InkWell(
             onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(
@@ -71,28 +95,25 @@ class SingleProduct extends StatelessWidget {
             child: new GridTile(
               footer: new Container(
                 color: Colors.white70,
-                child: new ListTile(
-                  leading: new Text(
-                      productName,
-                    style: new TextStyle(
-                      fontWeight: FontWeight.bold
+                child: new Row(
+                  children: <Widget>[
+                    new Expanded(
+                        child: new Text(
+                            productName,
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0
+                            ),
+                        )
                     ),
-                  ),
-                  title: new Text(
-                      "Rs"+price.toString(),
-                      style: new TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: Colors.blue
-                      ),
-                  ),
-                  subtitle: new Text(
-                    "Rs"+oldPrice.toString(),
-                    style: new TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black54,
-                      decoration:TextDecoration.lineThrough
-                    ),
-                  ),
+                    new Text(
+                        "Rs "+price.toString(),
+                        style: new TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold
+                        ),
+                    )
+                  ],
                 ),
               ),
               child: Image.asset(
