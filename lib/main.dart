@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: new ListView(
+      body: new Column(
         children: <Widget>[
             imageCarousal,
           new Padding(
@@ -175,8 +175,8 @@ class _HomePageState extends State<HomePage> {
             child: new Text("Recent Products"),
           ),
 
-          new Container(
-            height: 320.0,
+          new Flexible(
+
             child: Products(),
           )
 

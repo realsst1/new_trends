@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "345684929377",
+    "firebase_url": "https://newtrends-d64ef.firebaseio.com",
+    "project_id": "newtrends-d64ef",
+    "storage_bucket": "newtrends-d64ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345684929377:android:bbbcb90af8c2913c",
+        "android_client_info": {
+          "package_name": "com.shreyesh.new_trends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345684929377-k9tj7sfu77jna7q4god5t9l5rc1qhs71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shreyesh.new_trends",
+            "certificate_hash": "f4bc9584cd737aa68082d44de6bbe645c8759a8e"
+          }
+        },
+        {
+          "client_id": "345684929377-3018agetaagd1u7fa1db1nbrmj2v6i9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeIriuy_TrmvlmpFq0NB1s0FHTT3qXk48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345684929377-3018agetaagd1u7fa1db1nbrmj2v6i9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

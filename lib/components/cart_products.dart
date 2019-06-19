@@ -87,7 +87,7 @@ class SingleCartProduct extends StatelessWidget {
                   child: new Text("Size:"),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: new Text(
                       singleProductCartSize,
                       style: new TextStyle(
@@ -99,7 +99,7 @@ class SingleCartProduct extends StatelessWidget {
 
 
                 new Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 8.0, 2.0, 8.0),
+                    padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
                     child: new Text("Color:"),
                 ),
                 Padding(
@@ -132,9 +132,9 @@ class SingleCartProduct extends StatelessWidget {
 
         trailing: new Column(
           children: <Widget>[
-            //new IconButton(icon: Icon(Icons.arrow_drop_up), onPressed: (){},),
-            //new Text(singleProductCartQuantity.toString()),
-            //new IconButton(icon: Icon(Icons.arrow_drop_down), onPressed: (){})
+            new IconButton(icon: Icon(Icons.arrow_drop_up), onPressed: (){},),
+            new Text(singleProductCartQuantity.toString()),
+            new IconButton(icon: Icon(Icons.arrow_drop_down), onPressed: (){})
           ],
         ),
       ),
