@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_trends/main.dart';
+import 'package:new_trends/pages/home.dart';
 
 class ProductDetails extends StatefulWidget {
 
