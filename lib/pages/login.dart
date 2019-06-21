@@ -26,13 +26,22 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    //isSignedIn();
+    isSignedIn();
   }
 
 
   void isSignedIn() async{
     setState(() {
       loading=true;
+    });
+
+    FirebaseUser user=await firebaseAuth.currentUser().then((user){
+      if(user!=null){
+        setState(() {
+          isLogedin=true;
+        });
+      }
+
     });
 
 
@@ -131,6 +140,7 @@ class _LoginState extends State<Login> {
                           child: TextFormField(
                             controller: _emailTextController,
                             decoration: InputDecoration(
+                                border: InputBorder.none,
                               hintText: "Email",
                               icon: Icon(Icons.alternate_email)
                             ),
@@ -159,7 +169,9 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.only(left: 12.0),
                           child: TextFormField(
                             controller: _passwordTextController,
+                            obscureText: true,
                             decoration: InputDecoration(
+                                border: InputBorder.none,
                               hintText: "Password",
                               icon: Icon(Icons.lock_outline)
                             ),

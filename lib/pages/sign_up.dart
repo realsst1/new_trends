@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_trends/pages/login.dart';
+import 'package:new_trends/db/users.dart';
+
+import 'home.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -10,11 +13,13 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
+  UserServices _userServices=UserServices();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _confirmPasswordTextController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   String gender;
+  String groupValue="Male";
 
   bool loading = false;
 
@@ -66,6 +71,7 @@ class _SignUpState extends State<SignUp> {
                     child: TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
+                          border: InputBorder.none,
                           hintText: "Name",
                           icon: Icon(Icons.person_outline)
                       ),
@@ -80,6 +86,8 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
 
+
+
                     Padding(
                       padding: const EdgeInsets.fromLTRB(14.0,8.0,14.0,8.0),
                       child: Material(
@@ -91,6 +99,7 @@ class _SignUpState extends State<SignUp> {
                           child: TextFormField(
                             controller: _emailTextController,
                             decoration: InputDecoration(
+                                border: InputBorder.none,
                                 hintText: "Email",
                                 icon: Icon(Icons.alternate_email)
                             ),
@@ -110,6 +119,50 @@ class _SignUpState extends State<SignUp> {
                     ),
 
                     Padding(
+                      padding: const EdgeInsets.fromLTRB(14.0,8.0,14.0,8.0),
+                      child: new Container(
+                        color: Colors.white.withOpacity(0.4),
+                        child: new Row(
+                          children: <Widget>[
+                            new Expanded(
+                              child: new ListTile(
+                                title: new Text(
+                                  "Male",
+                                  textAlign: TextAlign.end,
+                                  style: new TextStyle(
+                                      color: Colors.white
+                                  ),
+                                ),
+                                trailing:new Radio(
+                                    value: "Male",
+                                    groupValue: groupValue,
+                                    onChanged: (e)=>valueChanged(e)
+                                ),
+                              ),
+                            ),
+                            new Expanded(
+                              child: new ListTile(
+                                title: new Text(
+                                  "Female",
+                                  textAlign: TextAlign.end,
+                                  style: new TextStyle(
+                                      color: Colors.white
+                                  ),
+                                ),
+                                trailing:new Radio(
+                                    value: "Female",
+                                    groupValue: groupValue,
+                                    onChanged: (e)=>valueChanged(e)
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+
+
+                    Padding(
                       padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                       child: Material(
                         borderRadius: BorderRadius.circular(10.0),
@@ -118,8 +171,10 @@ class _SignUpState extends State<SignUp> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 12.0),
                           child: TextFormField(
+                            obscureText: true,
                             controller: _passwordTextController,
                             decoration: InputDecoration(
+                                border: InputBorder.none,
                                 hintText: "Password",
                                 icon: Icon(Icons.lock_outline)
                             ),
@@ -145,16 +200,20 @@ class _SignUpState extends State<SignUp> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 12.0),
                       child: TextFormField(
+                        obscureText: true,
                         controller: _confirmPasswordTextController,
                         decoration: InputDecoration(
                             hintText: "Confirm Password",
+                            border: InputBorder.none,
                             icon: Icon(Icons.lock_outline)
                         ),
                         validator: (value){
                           if (value.isEmpty) {
                             return "The password field cannot be empty";
                           } else if (value.length < 6) {
-                            return "the password has to be at least 6 characters long";
+                            return "The password has to be at least 6 characters long";
+                          }else if(_passwordTextController.text!=_confirmPasswordTextController.text){
+                            return "Passwords do not match";
                           }
                           return null;
                         },
@@ -170,10 +229,12 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.blue.shade700,
                         elevation: 0.0,
                         child: MaterialButton(
-                          onPressed: (){},
+                          onPressed: ()async{
+                            validateForm();
+                          },
                           minWidth: MediaQuery.of(context).size.width,
                           child: Text(
-                            "Login",
+                            "Sign Up",
                             style: new TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -222,5 +283,43 @@ class _SignUpState extends State<SignUp> {
         ],
       ),
     );
+  }
+
+  valueChanged(e) {
+    setState(() {
+      if(e=="Male"){
+        groupValue=e;
+        gender=e;
+      }
+      else if(e=="Female"){
+        groupValue=e;
+        gender=e;
+      }
+    });
+  }
+
+  Future validateForm() async {
+    FormState formState=_formKey.currentState;
+    if(formState.validate()){
+      FirebaseUser firebaseUser=await firebaseAuth.currentUser();
+      if(firebaseUser==null){
+        firebaseAuth.createUserWithEmailAndPassword(
+            email: _emailTextController.text,
+            password: _passwordTextController.text).then((user)=>{
+              _userServices.createUser(user.uid,{
+                "username":_nameController.text,
+                "email":_emailTextController.text,
+                "id":user.uid,
+                "gender":gender,
+
+              })
+
+        }).catchError((e)=>{
+          print(e.toString())
+        })
+        ;
+        Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context)=>new HomePage()));
+      }
+    }
   }
 }
